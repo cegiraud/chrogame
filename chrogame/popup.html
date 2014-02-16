@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="" ng-csp="">
 <head>
     <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/angular.min.js"></script>
     <script src="js/popup.js"></script>
-    <script src="js/resources.js"></script>
-</head>
+    <style type="text/css">
+        body {font-family:Verdana; color: #A6B8CB; background-color: #102841; margin:0px}
+        h1 {padding: 2px 0px 10px 0px;}
+        #resources {font-size:9px; text-align : right}
+        #resources tbody {display : block; margin-bottom: 8px;}
+        #resources tbody:last-child {display : block; margin-bottom: 0px;}
+        #resources tbody tr th{white-space : nowrap; padding: 0px 5px}
+        .icon-resources {background : url('img/icone-resources.png') no-repeat; float: left; height: 32px; width: 48px}
+        .icon-metal {background-position: 0 -160px;}
+        .icon-cristal {background-position: -48px -160px;}
+        .icon-deuterium {background-position: -96px -160px;}
+    </style>
 
+</head>
 <body>
-    <button>toto est content</button>
+
+<div ng-controller="ResourcesController">
+  <table id="resources">
+        <caption><h1>Ressources</h1></caption>
+        <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tr>
+              <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+              <th>Disponible</th><td>{{resources[type].quantite| number:0}}</td>
+            </tr>
+            <tr><th>Capacit&#233; de stockage</th><td>{{resources[type].max| number:0}}</td></tr>
+            <tr><th>Production actuelle</th><td>{{resources[type].production*60*60| number:0}}</td></tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
