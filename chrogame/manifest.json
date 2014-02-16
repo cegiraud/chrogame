@@ -1,14 +1,30 @@
 {
-    "manifest_version" : 2,
-    "name" :"ChrOgame",
-    "version" :"1.0",
-    "description" :"Extension maison pour ogame",
-    "browser_action" : {
-		"default_icon" : "img/icon-64.png",
-        "default_popup" :"index.html"
+    "background": {
+        "scripts": ["js/jquery-2.1.0.min.js", "js/resources.js" ]
     },
-    "options_page": "options.html",
+    "browser_action" : {
+        "default_icon" : "img/icon-64.png",
+        "default_popup" :"popup.html"
+    },
+    "content_scripts": [ {
+        "all_frames": true,
+        "js": [ "js/jquery-2.1.0.min.js" , "js/resources.js", "js/popup.js"],
+        "matches": [ "http://*.ogame.gameforge.com/*", "https://*.ogame.gameforge.com/*" ],
+        "run_at": "document_start"
+    }],
+
+    "description" :"Extension maison pour ogame",
     "icons": {
-        "64": "img/icon-64.png"
-    }
+        "128": "img/icon-64.png",
+        "16": "img/icon-64.png",
+        "19": "img/icon-64.png",
+        "32": "img/icon-64.png",
+        "48": "img/icon-64.png"
+    },
+    "manifest_version": 2,
+    "minimum_chrome_version": "26.0",
+    "name": "ChrOgame",
+    "options_page": "options.html",
+    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webRequest", "webRequestBlocking", "webNavigation", "unlimitedStorage", "notifications" ],
+    "version": "1.0"
 }
