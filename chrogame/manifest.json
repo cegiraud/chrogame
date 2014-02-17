@@ -4,7 +4,7 @@
     },
     "browser_action" : {
         "default_icon" : "icons/icon-64.png",
-        "default_popup" :"popup.html"
+        "default_popup" :"popup-fragment.html"
     },
 
     "content_scripts": [
