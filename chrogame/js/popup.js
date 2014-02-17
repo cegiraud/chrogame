@@ -15,6 +15,9 @@ function ResourcesController($scope, $http) {
     $scope.s2t=function(t){
         return parseInt(t/(7*86400))+'s ' +  parseInt((t%(7*86400))/86400)+'d '+(new Date(t%86400*1000)).toUTCString().replace(/.*(\d{2}):(\d{2}):(\d{2}).*/, "$1h $2m $3s");
      }
+    $scope.nowMoreSecondes=function(t){
+        return (new Date()).getTime() + t * 1000;
+    }
     refresh();
 }
 
