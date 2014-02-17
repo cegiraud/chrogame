@@ -1,8 +1,24 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>ChrOgame Options</title></head>
+<head><title>ChrOgame Options</title></head>
+
 <body>
-    options ici...
+<fieldset>
+	<legend align="left"><div>Centralisation des ressources</div></legend>
+	Activer la centralisation: <input type="checkbox" id="centralisationActive"/><br/><br/>	
+	Destination: <input type="text" id="galaxie" size="1">:<input type="text" id="systeme" size="3">:<input type="text" id="position" size="2"><br/><br/>	
+	Type de centralisation: 
+	<select id="centralisationType">
+		<option>Toutes les ressources</option>
+		<option>M&eacute;tal uniquement</option>
+		<option>Cristal uniquement</option>
+		<option>Deut&eacute;rium uniquement</option>
+	</select>
+</fieldset>
+<br/>
+<div id="status"></div>
+<button id="save">Sauvegarder</button>
 </body>
+
+<script src="js/options.js"></script>
+
 </html>

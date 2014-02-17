@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by Charles on 16/02/14.
  */
 
@@ -22,6 +22,12 @@ function launch(){
             }
         });
     });
+	
+	// Detection de la page pour appel au module de centralisation
+	var params=extractUrlParams();
+	if(params["page"] == "fleet1"){
+		centraliser(1);
+	}
 }
 
 
@@ -50,4 +56,22 @@ function manageData(resultat){
     });
     chrome.extension.sendRequest(data);
 }
+
+function extractUrlParams(){	
+	var t = location.search.substring(1).split('&');
+	var f = [];
+	for (var i=0; i<t.length; i++){
+		var x = t[ i ].split('=');
+		f[x[0]]=x[1];
+	}
+	return f;
+}
+
+function centraliser(numPage){
+	//alert("Centraliser page:"+numPage);
+	chrome.extension.sendRequest({method: "getCentralisationActive"}, function(response) {
+		//alert(response.centralisationActive);
+	});
+}
+
 $(document).ready(launch);
