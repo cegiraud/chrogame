@@ -48,7 +48,6 @@ function manageData(resultat){
         data.deuterium.production +=value.deuterium.resources.production;
         data.deuterium.max +=value.deuterium.resources.max;
     });
-
     chrome.extension.sendRequest(data);
 }
 $(document).ready(launch);
