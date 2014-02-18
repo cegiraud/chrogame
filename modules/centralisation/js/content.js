@@ -31,13 +31,13 @@ function centraliser(numPage){
 	if(numPage == 1){
 		// Récupération de tout le paramétrage du module de centralisation
 		chrome.extension.sendRequest({method: "moduleCentralisationParams"}, function(response) {
-			alert(response.centralisationActive);
-			alert(response.galaxie);
-			alert(response.systeme);
-			alert(response.position);
-			alert(response.centralisationType);
+			console.log(response.centralisationActive);
+            console.log(response.galaxie);
+            console.log(response.systeme);
+            console.log(response.position);
+            console.log(response.centralisationType);
 		});
-		alert("coucou nouvelle version");
+        console.log("coucou nouvelle version");
 	}
 
 }
