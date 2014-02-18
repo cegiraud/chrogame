@@ -7,8 +7,9 @@ chrogameApp.config(['$routeProvider',
                 templateUrl: 'modules/resources/popup-fragment.html',
                 controller: 'ResourcesController'
             }).
-            when('/empty', {
-                templateUrl: 'empty.html'
+            when('/centralisation', {
+                templateUrl: 'modules/centralisation/popup-fragment.html',
+                controller: 'CentralisationController'
             }).
             otherwise({
                 redirectTo: '/resources'
@@ -33,6 +34,6 @@ chrogameApp.controller('ResourcesController', function($scope) {
     (function() {setTimeout($scope.refresh, 1000);})();
 });
 
-chrogameApp.controller('ResourcesController2', function($scope) {
+chrogameApp.controller('CentralisationController', function($scope) {
     $scope.message = 'This is Show orders screen';
 });

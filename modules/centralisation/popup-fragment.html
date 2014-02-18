@@ -1,0 +1,62 @@
+<head>
+    <style type="text/css">
+        body{width:300px;}
+        table{font-size:9px; text-align : left; margin: 5px 0 20px}
+        body table:last-child{margin-bottom: 0;}
+        table tbody {display : block; margin-bottom: 8px;}
+        table tbody:last-child {display : block; margin-bottom: 0;}
+        table tbody tr th {white-space : nowrap; padding: 0 5px}
+        table tbody tr td, table tbody tr th {width: 30px}
+        table tbody tr td:last-child{width: 150px}
+        input {background-color: #b3c3cb;}
+        button {background-color: #b3c3cb;}
+        select {background-color: #b3c3cb;}
+        .label{width:125px}
+        .button{text-align:center}
+        #galaxie{width: 15px;}
+        #systeme{width: 22px;}
+        #position{width: 15px;}
+    </style>
+</head>
+
+<table>
+    <caption><h1>Centralisation</h1></caption>
+    <tbody>
+    <tr>
+        <td class="label">
+            Activer la centralisation:
+        </td>
+        <td>
+            <input type="checkbox" id="centralisationActive"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Destination:
+        </td>
+        <td>
+            <input type="text" id="galaxie">:<input type="text" id="systeme">:<input type="text" id="position">
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Type de centralisation:
+        </td>
+        <td>
+            <select id="centralisationType">
+                <option>Toutes les ressources</option>
+                <option>M&eacute;tal uniquement</option>
+                <option>Cristal uniquement</option>
+                <option>Deut&eacute;rium uniquement</option>
+            </select>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan='2' class="button">
+            <button id="save">Sauvegarder</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div id="status"></div>
