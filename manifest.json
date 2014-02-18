@@ -1,0 +1,34 @@
+{
+    "background": {
+        "scripts": ["js/jquery-2.1.0.min.js", "modules/resources/js/background.js", "modules/centralisation/js/background.js" ]
+    },
+    "browser_action" : {
+        "default_icon" : "icons/icon-64.png",
+        "default_popup" :"popup.html"
+    },
+
+    "content_scripts": [
+		{
+        "js": ["js/jquery-2.1.0.min.js", "modules/resources/js/content.js"],
+        "matches": [ "http://*.ogame.gameforge.com/game/index.php?page=overview*", "https://*/.ogame.gameforge.com/game/index.php?page=overview*" ]
+		},
+		{
+        "js": ["js/jquery-2.1.0.min.js", "modules/centralisation/js/content.js"],
+        "matches": [ "http://*.ogame.gameforge.com/game/index.php?page=fleet*", "https://*/.ogame.gameforge.com/game/index.php?page=fleet*" ]
+		}
+	],
+
+    "description" :"Extension maison pour ogame",
+    "icons": {
+        "128": "icons/icon-64.png",
+        "16": "icons/icon-64.png",
+        "19": "icons/icon-64.png",
+        "32": "icons/icon-64.png",
+        "48": "icons/icon-64.png"
+    },
+    "manifest_version": 2,
+    "name": "ChrOgame",
+	"options_page": "options.html",
+    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webRequest", "webRequestBlocking", "webNavigation", "unlimitedStorage", "notifications" ],
+    "version": "1.0"
+}
