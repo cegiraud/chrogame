@@ -14,12 +14,15 @@ function launch(){
  * Permet de corriger les bugs qui font changer de planetes
  */
 function preventBugsOnPlanetChange(){
-    var paramToAdd = $(".planetlink.active")[0].href.substr($(".planetlink.active")[0].href.lastIndexOf('cp='));
+    var selector = $("#planetList .planetlink.active, #planetList .moonlink.active");
+    var paramToAdd = selector[0].href.substr(selector[0].href.lastIndexOf('cp='));
     $("a").each(function(index, elt){
-        elt.href=elt.href.replace('?', '?' + paramToAdd + '&');
+        if(elt.href.indexOf("cp=") == -1) {
+            elt.href=elt.href + '&' + paramToAdd
+        }
     });
     $.ajaxSetup({
-        data: { cp: paramToAdd.substr(3)}
+        data: {cp: paramToAdd.substr(3)}
     });
 }
 
@@ -27,16 +30,18 @@ function preventBugsOnPlanetChange(){
  * Fait les demandes Ajax pour réccupérer les ressources
  */
 function getAjaxResources(){
-    var planetes = $("div[id^='planet-']");
-    var nbTotalRequetes =  planetes.length;
+    var planetAndMoon = $("#planetList .planetlink, #planetList .moonlink");
+    var nbTotalRequetes =  planetAndMoon.length;
     var nbReponses = 0;
 
     var resultat = new Array();
-    planetes.each(function(index, elt){
-        var url = $(location).attr('protocol') +'//'+ $(location).attr('host') + $(location).attr('pathname') +'?page=fetchResources&cp=' + elt.id.substring(elt.id.indexOf("-")+1);
+    planetAndMoon.each(function(index, elt){
+        var planetCode = elt.href.substr(elt.href.lastIndexOf('cp=') +3);
+        var url = $(location).attr('protocol') +'//'+ $(location).attr('host') + $(location).attr('pathname') +'?page=fetchResources';
         $.ajax({
             url: url,
             dataType: 'json',
+            data: {cp:planetCode},
             success: function(data){
                 resultat.push(data);
                 nbReponses++;
@@ -53,7 +58,7 @@ function getAjaxResources(){
  * @param resultat le retour ajax
  */
 function manageData(resultat){
-     var data= {
+    var data= {
         "metal":{"quantite":0,"production":0,"max":0},
         "cristal":{"quantite":0,"production":0,"max":0},
         "deuterium":{"quantite":0,"production":0,"max":0}
