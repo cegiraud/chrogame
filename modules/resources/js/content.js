@@ -5,9 +5,18 @@
 /**
  * Fonction principale
  */
+
+var data= {
+    "metal":{"quantite":0,"envol":0,"production":0,"max":0},
+    "cristal":{"quantite":0,"envol":0,"production":0,"max":0},
+    "deuterium":{"quantite":0,"envol":0,"production":0,"max":0}
+};
+
+
 function launch(){
     preventBugsOnPlanetChange();
-    getAjaxResources()
+    getFleetResources();
+    getPlanetAndMonResources();
 }
 
 /**
@@ -29,7 +38,7 @@ function preventBugsOnPlanetChange(){
 /**
  * Fait les demandes Ajax pour réccupérer les ressources
  */
-function getAjaxResources(){
+function getPlanetAndMonResources(){
     var planetAndMoon = $("#planetList .planetlink, #planetList .moonlink");
     var nbTotalRequetes =  planetAndMoon.length;
     var nbReponses = 0;
@@ -58,12 +67,6 @@ function getAjaxResources(){
  * @param resultat le retour ajax
  */
 function manageData(resultat){
-    var data= {
-        "metal":{"quantite":0,"production":0,"max":0},
-        "cristal":{"quantite":0,"production":0,"max":0},
-        "deuterium":{"quantite":0,"production":0,"max":0}
-    };
-
     $.each(resultat,function(key, value){
         data.metal.quantite +=value.metal.resources.actual;
         data.metal.production +=value.metal.resources.production;
@@ -78,6 +81,30 @@ function manageData(resultat){
         data.deuterium.max +=value.deuterium.resources.max;
     });
     chrome.extension.sendRequest(data);
+}
+
+
+/**
+ * Réccupère les ressources des flottes en vol
+ */
+function getFleetResources(){
+    $.ajax({
+        url: $(location).attr('protocol') +'//'+ $(location).attr('host') + $(location).attr('pathname') +'?page=eventList',
+        dataType: 'html',
+        success: function(result){
+            $("#eventboxContent").append($.parseHTML(result));
+            $("#eventListWrap")
+                .find(".eventFleet[data-mission-type='4'],.eventFleet[data-mission-type ='3'][data-return-flight='true']")
+                .find("td[class^='icon_movement']")
+                .find(".tooltip.tooltipRight.tooltipClose").each(function(key,value){
+                    $("#eventFooter").html(value.title);
+                    data.metal.envol += parseInt($("#eventFooter td:contains('Métal')").siblings().html(),0);
+                    data.cristal.envol += parseInt($("#eventFooter td:contains('Cristal')").siblings().html(),0);
+                    data.deuterium.envol += parseInt($("#eventFooter td:contains('Deutérium')").siblings().html(),0);
+
+                });
+        }
+    });
 }
 
 $(document).ready(launch);
