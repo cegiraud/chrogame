@@ -98,10 +98,9 @@ function getFleetResources(){
                 .find("td[class^='icon_movement']")
                 .find(".tooltip.tooltipRight.tooltipClose").each(function(key,value){
                     $("#eventFooter").html(value.title);
-                    data.metal.envol += parseInt($("#eventFooter td:contains('Métal')").siblings().html(),0);
-                    data.cristal.envol += parseInt($("#eventFooter td:contains('Cristal')").siblings().html(),0);
-                    data.deuterium.envol += parseInt($("#eventFooter td:contains('Deutérium')").siblings().html(),0);
-
+                    data.metal.envol += parseInt($("#eventFooter td:contains('Métal')").siblings().html().replace(/[^\d]/g,''));
+                    data.cristal.envol += parseInt($("#eventFooter td:contains('Cristal')").siblings().html().replace(/[^\d]/g,''));
+                    data.deuterium.envol += parseInt($("#eventFooter td:contains('Deutérium')").siblings().html().replace(/[^\d]/g,''));
                 });
         }
     });
