@@ -94,7 +94,9 @@ function getFleetResources(){
         success: function(result){
             $("#eventboxContent").append($.parseHTML(result));
             $("#eventListWrap")
-                .find(".eventFleet[data-mission-type='4'],.eventFleet[data-mission-type ='3'][data-return-flight='true']")
+                .find(".eventFleet[data-mission-type='4']," +
+                    ".eventFleet[data-mission-type ='3'][data-return-flight='true']," +
+                    ".eventFleet[data-mission-type ='8'][data-return-flight='true']")
                 .find("td[class^='icon_movement']")
                 .find(".tooltip.tooltipRight.tooltipClose").each(function(key,value){
                     $("#eventFooter").html(value.title);
