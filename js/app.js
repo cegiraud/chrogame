@@ -35,5 +35,50 @@ chrogameApp.controller('ResourcesController', function($scope) {
 });
 
 chrogameApp.controller('CentralisationController', function($scope) {
-    $scope.message = 'This is Show orders screen';
+    $scope.centralisationTypes = [
+        {id:0,name:'Toutes les ressources'},
+        {id:1,name:'Metal uniquement'},
+        {id:2,name:'Cristal Uniquement'},
+        {id:3,name:'Deuterium uniquement'}
+    ];
+
+    $scope.astres = [
+        {id:0,name:'Planete'},
+        {id:1,name:'Lune'}
+    ];
+
+    $scope.moduleActiveBoolean=false;
+    if(localStorage["centralisation_active"] == 'true'){
+        $scope.moduleActiveBoolean=true;
+    }
+
+    $scope.centralisationType=$scope.centralisationTypes[localStorage["type_centralisation"]];
+    $scope.astre=$scope.astres[localStorage["astre_centralisation"]];
+    $scope.galaxy=localStorage["centralisation_galaxy"];
+    $scope.system=localStorage["centralisation_system"];
+    $scope.position=localStorage["centralisation_position"];
+
+    $scope.$watch('galaxy', function(newVal){
+        localStorage["centralisation_galaxy"] = $scope.galaxy;
+    });
+
+    $scope.$watch('system', function(newVal){
+        localStorage["centralisation_system"] = $scope.system;
+    });
+
+    $scope.$watch('position', function(newVal){
+        localStorage["centralisation_position"] = $scope.position;
+    });
+
+    $scope.updateModuleActive = function(){
+        localStorage["centralisation_active"] = $scope.moduleActive;
+    }
+
+    $scope.updateAstre = function(){
+        localStorage["astre_centralisation"] = $scope.astre.id;
+    }
+
+    $scope.updateCentralisationType = function(){
+        localStorage["type_centralisation"] = $scope.centralisationType.id;
+    }
 });
