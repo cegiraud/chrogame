@@ -21,10 +21,11 @@
     <caption><h1>Ressources</h1></caption>
     <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
     <tr>
-        <td rowspan='4'><span class="icon-resources icon-{{type}}"/></td>
+        <td rowspan='5'><span class="icon-resources icon-{{type}}"/></td>
         <th>Disponible</th><td>{{resources[type].quantite| number:0}}</td>
     </tr>
     <tr><th>En vol</th><td>{{resources[type].envol| number:0}}</td></tr>
+    <tr><th>Total dont en vol</th><td>{{resources[type].quantite +  resources[type].envol| number:0}}</td></tr>
     <tr><th>Capacit&#233; de stockage</th><td>{{resources[type].max| number:0}}</td></tr>
     <tr><th>Production actuelle</th><td>{{resources[type].production*60*60| number:0}}</td></tr>
     </tbody>
