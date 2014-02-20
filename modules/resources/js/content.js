@@ -67,6 +67,9 @@ function getPlanetAndMonResources(){
  * @param resultat le retour ajax
  */
 function manageData(resultat){
+    //on repositionne la planete
+    $.ajax({url: $("#planetList .planetlink.active, #planetList .moonlink.active")[0].href});
+
     $.each(resultat,function(key, value){
         data.metal.quantite +=value.metal.resources.actual;
         data.metal.production +=value.metal.resources.production;
