@@ -61,7 +61,6 @@ function doFleet1Job(){
 
 function doFleet2Job(paramCentraliser){
     if(paramCentraliser == "on"){
-        setCookie("click_centraliser","true");
         $("#galaxy").val(cGalaxy);
         $("#system").val(cSystem);
         $("#position").val(cPosition);
@@ -72,18 +71,23 @@ function doFleet2Job(paramCentraliser){
             $("#pbutton").get(0).click();
         }
 
+        setCookie("click_centraliser","true");
         $("#continue").get(0).click();
     }
 }
 
 function doFleet3Job(){
     if(getCookie("click_centraliser") == "true"){
+        setCookie("click_centraliser","false");
+
+        // On clique sur la mission transporter
+        $("#missionButton3").get(0).click();
+
         // Chargement des ressources
         loadResources();
 
         // Envoie de la flotte
         $("#start").get(0).click();
-        setCookie("click_centraliser","false");
     }
 }
 
