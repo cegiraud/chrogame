@@ -7,37 +7,21 @@ var cGalaxy = 1;
 var cSystem = 1;
 var cPosition = 1;
 var cAstre = 1;
-var cType = 1;
+var cType = -1;
 var cNbGts = 0;
-var cMetal = 0;
-var cCrystal = 0;
-var cDeuterium = 0;
-var paramLoaded = false;
 
 function launch(){
     // Récupération de tout le paramétrage du module de centralisation
     chrome.extension.sendRequest({method: "moduleCentralisationParams"}, function(response) {
-        console.log(response.centralisationActive);
         cActive=response.centralisationActive;
-
-        console.log(response.galaxie);
         cGalaxy=response.galaxie;
-
-        console.log(response.systeme);
         cSystem=response.systeme;
-
-        console.log(response.position);
         cPosition=response.position;
-
-        console.log(response.astre);
         cAstre=response.astre;
-
-        console.log(response.centralisationType);
         cType=response.centralisationType;
 
         // Si le module n'est pas activé, on sort.
         if(cActive == "true"){
-            console.log("cActive >"+cActive);
             // Detection de la page pour appel au module de centralisation
             var params=extractUrlParams();
 
@@ -45,10 +29,17 @@ function launch(){
                 doWork();
             }
 
+            if(params["page"] == "fleet2"){
+                $("#continue").get(0).click();
+            }
+
             // Si on est page 3, on charge les resources
             if(params["page"] == "fleet3"){
                 // Positionnement des ressources a centraliser
                 resourcesToSend();
+                $("#start").get(0).click();
+                //$("#start").children("span").text("Centraliser");
+                //$("#button4").removeClass("on").addClass("off");
             }
         }
     });
@@ -57,6 +48,8 @@ function launch(){
 function doWork(){
     //Positionnement du nombre de gts necessaires
     calcNbGts();
+
+    //document.shipsChosen.am203.value=cNbGts;
 
     // Construction de l'url d'appel
     var hrefString = generateHref();
@@ -72,7 +65,7 @@ function doWork(){
     // Insertion du bouton de centralisation dans la page
     $("#continue").after(centraliserButton);
     $(".info").text("");
-    $("#continue").remove();
+    //$("#continue").remove();
 
 }
 
@@ -92,14 +85,48 @@ function generateHref(){
 }
 
 function resourcesToSend(){
-    $("#metal").val($("#resources_metal").text());
-    $("#crystal").val($("#resources_crystal").text());
-    $("#deuterium").val($("#resources_deuterium").text());
+    if(cType == 0 || cType == 1){
+        $("#metal").val($("#resources_metal").text());
+    }
+
+    if(cType == 0 || cType == 2){
+        $("#crystal").val($("#resources_crystal").text());
+    }
+
+    if(cType == 0 || cType == 3){
+        $("#deuterium").val($("#resources_deuterium").text());
+    }
 }
 
 function calcNbGts(){
-    console.log($("#resources_metal").text());
-    cNbGts = 500;
+
+    var reg = new RegExp("[\.]","gi");
+
+    var temp = $("#resources_metal").text();
+    var metal = parseInt(temp.replace(reg,''));
+
+    temp = $("#resources_crystal").text();
+    var cristal = parseInt(temp.replace(reg,''));
+
+    temp = $("#resources_deuterium").text();
+    var deuterium = parseInt(temp.replace(reg,''));
+
+    var total = 0;
+
+    if(cType == 0 || cType == 1){
+        total+=metal;
+    }
+
+    if(cType == 0 || cType == 2){
+        total+=cristal;
+    }
+
+    if(cType == 0 || cType == 3){
+        total+=deuterium;
+    }
+
+    // TODO: Ajouter la consomation des vaisseaux
+    cNbGts = Math.round(total/25000)+1;
 }
 
 function extractUrlParams(){
