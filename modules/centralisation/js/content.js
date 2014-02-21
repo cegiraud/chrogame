@@ -25,34 +25,27 @@ function launch(){
             // Detection de la page pour appel au module de centralisation
             var params=extractUrlParams();
 
+            // Page 1: On intègre le bouton centraliser avec le nombre de vaisseaux
             if(params["page"] == "fleet1"){
-                doWork();
+                doFleet1Job();
             }
 
+            // Page 2: Si on a cliqué sur centraliser, on passe à la suite
             if(params["page"] == "fleet2"){
-                $("#continue").get(0).click();
+                doFleet2Job(params["centraliser"]);
             }
 
-            // Si on est page 3, on charge les resources
+            // Page 3: Si on a cliqué sur centraliser, on charge les resources
             if(params["page"] == "fleet3"){
-                // Positionnement des ressources a centraliser
-                resourcesToSend();
-                $("#start").get(0).click();
-                //$("#start").children("span").text("Centraliser");
-                //$("#button4").removeClass("on").addClass("off");
+                doFleet3Job();
             }
         }
     });
 }
 
-function doWork(){
+function doFleet1Job(){
     //Positionnement du nombre de gts necessaires
     calcNbGts();
-
-    //document.shipsChosen.am203.value=cNbGts;
-
-    // Construction de l'url d'appel
-    var hrefString = generateHref();
 
     // Creation du bouton de centralisation
     var centraliserButton = $("#continue").clone();
@@ -60,31 +53,41 @@ function doWork(){
     centraliserButton.addClass("on");
     centraliserButton.removeAttr("onclick");
     centraliserButton.children("span").text("Centraliser");
-    centraliserButton.removeAttr("href").attr("href",hrefString);
+    centraliserButton.removeAttr("href").attr("href","index.php?page=fleet2&centraliser=on&am203="+cNbGts);
 
     // Insertion du bouton de centralisation dans la page
     $("#continue").after(centraliserButton);
-    $(".info").text("");
-    //$("#continue").remove();
-
 }
 
-function generateHref(){
-    var url = "index.php?page=fleet2&holdingtime=1&expeditiontime=1&union2=0&holdingOrExpTime=0&speed=10&mission=3&acsValues=-";
-    url = url+"&galaxy="+cGalaxy;
-    url = url+"&system="+cSystem;
-    url = url+"&position="+cPosition;
-    if(cAstre == 1){
-        url = url+"&type="+3;
+function doFleet2Job(paramCentraliser){
+    if(paramCentraliser == "on"){
+        setCookie("click_centraliser","true");
+        $("#galaxy").val(cGalaxy);
+        $("#system").val(cSystem);
+        $("#position").val(cPosition);
+        if(cAstre == 1){
+            $("#mbutton").get(0).click();
+        }
+        else{
+            $("#pbutton").get(0).click();
+        }
+
+        $("#continue").get(0).click();
     }
-    else{
-        url = url+"&type="+1;
-    }
-    url = url+"&am203="+cNbGts;
-    return url;
 }
 
-function resourcesToSend(){
+function doFleet3Job(){
+    if(getCookie("click_centraliser") == "true"){
+        // Chargement des ressources
+        loadResources();
+
+        // Envoie de la flotte
+        $("#start").get(0).click();
+        setCookie("click_centraliser","false");
+    }
+}
+
+function loadResources(){
     if(cType == 0 || cType == 1){
         $("#metal").val($("#resources_metal").text());
     }
@@ -137,6 +140,21 @@ function extractUrlParams(){
         f[x[0]]=x[1];
     }
     return f;
+}
+
+function setCookie(cname,cvalue){
+    document.cookie = cname + "=" + cvalue + ";";
+}
+
+function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++)
+    {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
 }
 
 $(document).ready(launch);
