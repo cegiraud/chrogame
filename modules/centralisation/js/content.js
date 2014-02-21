@@ -27,39 +27,46 @@ function launch(){
 
             // Page 1: On intègre le bouton centraliser avec le nombre de vaisseaux
             if(params["page"] == "fleet1"){
-                doFleet1Job();
+                doFleet1JobCentralisation();
             }
 
             // Page 2: Si on a cliqué sur centraliser, on passe à la suite
             if(params["page"] == "fleet2"){
-                doFleet2Job(params["centraliser"]);
+                doFleet2JobCentralisation(params["centraliser"]);
             }
 
             // Page 3: Si on a cliqué sur centraliser, on charge les resources
             if(params["page"] == "fleet3"){
-                doFleet3Job();
+                doFleet3JobCentralisation();
             }
         }
     });
 }
 
-function doFleet1Job(){
+function doFleet1JobCentralisation(){
     //Positionnement du nombre de gts necessaires
     calcNbGts();
 
     // Creation du bouton de centralisation
     var centraliserButton = $("#continue").clone();
+    centraliserButton.attr("id","centraliserButton");
     centraliserButton.removeClass("off");
     centraliserButton.addClass("on");
     centraliserButton.removeAttr("onclick");
     centraliserButton.children("span").text("Centraliser");
-    centraliserButton.removeAttr("href").attr("href","index.php?page=fleet2&centraliser=on&am203="+cNbGts);
+    centraliserButton.children("span").attr("style","display: block;color: #fff;text-align: center;height: 38px;line-height: 38px;" +
+        "overflow: hidden;font-weight: bold;text-transform: uppercase;font-size: 12px;margin: 0;padding: 0;border: 0;outline: 0;" +
+        "cursor: auto;overflow-x: hidden;overflow-y: hidden;");
+    centraliserButton.attr("href","index.php?page=fleet2&centraliser=on&am203="+cNbGts);
+    centraliserButton.attr("style","margin: 0;padding: 0;height: 38px;width: 104px;float: right;position: static;display: inline;" +
+        "background: transparent url('http://gf1.geo.gfsrv.net/cdn34/aaf1c61682bcced5096fa5f23fd802.png') 0 -240px;text-decoration: none;" +
+        "color: #848484;-moz-outline-width: 0;outline: 0;font-weight: inherit;font-style: inherit;font-size: 100%;font-family: inherit;cursor: auto;text-align: left;");
 
     // Insertion du bouton de centralisation dans la page
     $("#continue").after(centraliserButton);
 }
 
-function doFleet2Job(paramCentraliser){
+function doFleet2JobCentralisation(paramCentraliser){
     if(paramCentraliser == "on"){
         $("#galaxy").val(cGalaxy);
         $("#system").val(cSystem);
@@ -76,7 +83,7 @@ function doFleet2Job(paramCentraliser){
     }
 }
 
-function doFleet3Job(){
+function doFleet3JobCentralisation(){
     if(getCookie("click_centraliser") == "true"){
         setCookie("click_centraliser","false");
 

@@ -11,6 +11,10 @@ chrogameApp.config(['$routeProvider',
                 templateUrl: 'modules/centralisation/popup-fragment.html',
                 controller: 'CentralisationController'
             }).
+            when('/ghost', {
+                templateUrl: 'modules/ghost/popup-fragment.html',
+                controller: 'GhostController'
+            }).
             otherwise({
                 redirectTo: '/resources'
             });
@@ -80,5 +84,16 @@ chrogameApp.controller('CentralisationController', function($scope) {
 
     $scope.updateCentralisationType = function(){
         localStorage["type_centralisation"] = $scope.centralisationType.id;
+    }
+});
+
+chrogameApp.controller('GhostController', function($scope) {
+    $scope.moduleActiveBoolean=false;
+    if(localStorage["ghost_active"] == 'true'){
+        $scope.moduleActiveBoolean=true;
+    }
+
+    $scope.updateModuleActive = function(){
+        localStorage["ghost_active"] = $scope.moduleActive;
     }
 });
