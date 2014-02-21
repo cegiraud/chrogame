@@ -52,9 +52,34 @@ function doFleet1JobGhost(){
 }
 
 function doFleet2JobGhost(param){
-//http://s10-fr.ogame.gameforge.com/game/index.php?page=fleetcheck&ajax=1&espionage=0&galaxy=4&system=127&planet=5&type=2&recycler=1
+
+    var string = 'default';
+    $.ajaxSetup({async: false});
+    for(i=0; i<15;i++){
+        $.get('/game/index.php',
+            {   page: 'fleetcheck',
+                ajax: 1,
+                espionage:0,
+                galaxy:5,
+                system:452,
+                planet:i,
+                type:2,
+                recycler:1},
+            function(data){
+                string = data;
+            }
+        );
+        if(string == 0){
+            console.log("[5:452:"+i+"] valide");
+        }
+    }
+    $.ajaxSetup({async: false});
+
+
+    //http://s10-fr.ogame.gameforge.com/game/index.php?page=fleetcheck&ajax=1&espionage=0&galaxy=4&system=127&planet=5&type=2&recycler=1
     //galaxy=4&system=127&planet=5&type=2&recycler=1
     //http://s10-fr.ogame.gameforge.com/game/index.php?page=fleetcheck&ajax=1&espionage=0&galaxy=4&system=124&planet=7&type=2&recycler=1
+    //http://s119-fr.ogame.gameforge.com/index.php?page=fleetcheck&ajax=1&espionage=0&galaxy=4&system=127&planet=5&type=2&recycler=1
 }
 
 function doFleet3JobGhost(){
