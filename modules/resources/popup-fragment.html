@@ -1,24 +1,13 @@
 <head>
 <style type="text/css">
-    table{font-size:9px; text-align : right; margin: 5px 0 20px}
-    body table:last-child{margin-bottom: 0}
-    table tbody {display : block; margin-bottom: 8px;}
-    table tbody:last-child {display : block; margin-bottom: 0;}
-    table tbody tr th {white-space : nowrap; padding: 0 5px}
-    table tbody tr td, table tbody tr th {width: 30px}
-    table tbody tr td:last-child{width: 150px}
     .icon-resources {background : url('modules/resources/img/icone-resources.png') no-repeat; float: left; height: 32px; width: 48px}
     .icon-metal {background-position: 0 -160px;}
     .icon-cristal {background-position: -48px -160px;}
     .icon-deuterium {background-position: -96px -160px;}
-    .positive{color:green}
-    .negative{color:red}
-    input {background-color: #b3c3cb; width: 100px}
 </style>
 </head>
 
 <table id="resources">
-    <caption><h1>Ressources</h1></caption>
     <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
     <tr>
         <td rowspan='5'><span class="icon-resources icon-{{type}}"/></td>

@@ -2,6 +2,14 @@
  * Created by Charles on 22/02/14.
  */
 
+chrogameApp.controller('MenuController', function($scope, $location) {
+    $scope.menu = "/resources";
+    $scope.changeView = function(){
+        $location.path($scope.menu);
+    }
+    $scope.changeView();
+});
+
 /**
  * Module d'affichage de resources
  */
