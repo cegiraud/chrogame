@@ -29,9 +29,11 @@ chrogameApp.controller('ResourcesController', function($scope) {
             });
         });
 
-        $.each(ogameData.flyingResources, function (type,value){
-            resources[type].flying = value;
-        });
+        if(ogameData.flyingResources != undefined){
+            $.each(ogameData.flyingResources, function (type,value){
+                resources[type].flying = value;
+            });
+        }
         return resources;
     }
 

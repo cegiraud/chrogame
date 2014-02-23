@@ -8,18 +8,32 @@ var planetCode;
  * Méthode principale
  */
 function launch(){
+    var activePage = $(location).attr('href');
+    var toLaunch = false;
+    $.each(['overview', 'resources' ,'station' ,'research', 'shipyard', 'defense'], function (){
+        if(activePage.indexOf(this) !=-1){
+            return toLaunch = true;
+        }
+    });
+    //on arrete si on est pas sur une bonne page
+    if(!toLaunch) return ;
+
     //reccupération du code de la planete active
     planetCode = getPlanetCode();
 
     //initialisation si on vient de se connecter
-    if($(location).attr('href').indexOf("PHPSESSID=") !=-1){
+    if(activePage.indexOf("PHPSESSID=") !=-1){
         initAllResources();
     }
+
     getResources();
     getFlyingResources();
     getBuildings();
+    getFleets();
+    getDefenses();
     getInfos();
 }
+
 
 /**
  * reccupération du code de la planete active
@@ -27,7 +41,8 @@ function launch(){
  */
 function getPlanetCode(){
     var selector = $("#planetList .planetlink.active, #planetList .moonlink.active");
-    return selector[0].href.substr(selector[0].href.lastIndexOf('cp=') + 3);
+    var planetCode = selector[0].href.substring(selector[0].href.lastIndexOf('cp=') + 3);
+    return planetCode.indexOf('#') != -1 ? planetCode.substring(0, planetCode.indexOf('#')): planetCode;
 }
 
 /**
@@ -81,10 +96,22 @@ function getResources(){
     });
 }
 
+
+/**
+ * Teste si des flottes perso sont en vol
+ */
+function isFriendlyFleetFlying(){
+    var nbFriendlyFleet = ($("#eventFriendly").text());
+    return nbFriendlyFleet != undefined && nbFriendlyFleet != 0;
+}
+
 /**
  * Réccupère les ressources des flottes en vol
  */
 function getFlyingResources(){
+    //Si pas de flotte on ne fait pas l'appel ajax
+    if(!isFriendlyFleetFlying()) return;
+
     var flyingResources = {metal:0,cristal:0,deuterium:0};
     $.ajax({
         url: $(location).attr('protocol') +'//'+ $(location).attr('host') + $(location).attr('pathname') +'?page=eventList',
@@ -106,22 +133,45 @@ function getFlyingResources(){
 }
 
 /**
- * Réccupére les batiments
+ * Méthode générique pour parser les pages de batiment, structure, defense, flotte
+ * @param keys le tableau de clé
+ * @param type le type d'objet
  */
-function getBuildings(){
-    var buildings= {};
-    $.each(['#building', '#storage', '#den', '#stationbuilding'], function(){
+function getMultipleDataOnPages(keys, type){
+    var result= {};
+    $.each(keys, function(){
         $(this + " .tooltip").each(function(){
-            var name = $(this)[0].title.replace(/[0-9\(\)]/g,'');
+            var name = $(this)[0].title.replace(/[0-9\(\)\.]/g,'');
             if(name.indexOf("<") != -1){
                 name = name.substring(0, name.indexOf("<"));
             }
             if (name.indexOf("développer au niveau") == -1) {
-                buildings[name.trim()] = $(this).find(".level").clone().children().remove().end().text().trim();
+                result[name.trim()] = $(this).find(".level").clone().children().remove().end().text().trim();
             }
         });
     });
-    sendDatas("buildings", buildings, planetCode);
+    sendDatas(type, result, planetCode);
+}
+
+/**
+ * Réccupére les batiments
+ */
+function getBuildings(){
+    getMultipleDataOnPages(['#building', '#storage', '#den', '#stationbuilding'], "buildings" );
+}
+
+/**
+ * Réccupére les flottes
+ */
+function getFleets(){
+    getMultipleDataOnPages(['#military'], "military" );
+}
+
+/**
+ * Réccupére les défenses
+ */
+function getDefenses(){
+    getMultipleDataOnPages(['#defensebuilding'], "defensebuilding" );
 }
 
 /**

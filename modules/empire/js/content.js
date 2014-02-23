@@ -110,7 +110,47 @@ function buildPage(ogameData){
         $.each(row[category], function(subCateg){
             contents +="<tr>";
             if(!headerWriten){
-                contents +="<td colspan='2' rowspan='" + Object.keys(row[category]).length +"'>Informations</td>";
+                contents +="<td colspan='2' rowspan='" + Object.keys(row[category]).length +"'>Batiments</td>";
+                headerWriten = true;
+            }
+            contents +="<td>" + subCateg + "</td>";
+            $.each(ogameData.planets, function(){
+                var value = 0;
+                if($(this)[0][category] != undefined &&  $(this)[0][category][subCateg] != undefined ){
+                    value =  $(this)[0][category][subCateg];
+                }
+                contents +="<td>" +value + "</td>";
+            });
+            contents += "</tr>";
+        });
+
+
+        var headerWriten = false;
+        var category = 'military';
+        $.each(row[category], function(subCateg){
+            contents +="<tr>";
+            if(!headerWriten){
+                contents +="<td colspan='2' rowspan='" + Object.keys(row[category]).length +"'>Flotte</td>";
+                headerWriten = true;
+            }
+            contents +="<td>" + subCateg + "</td>";
+            $.each(ogameData.planets, function(){
+                var value = 0;
+                if($(this)[0][category] != undefined &&  $(this)[0][category][subCateg] != undefined ){
+                    value =  $(this)[0][category][subCateg];
+                }
+                contents +="<td>" +value + "</td>";
+            });
+            contents += "</tr>";
+        });
+
+
+        var headerWriten = false;
+        var category = 'defensebuilding';
+        $.each(row[category], function(subCateg){
+            contents +="<tr>";
+            if(!headerWriten){
+                contents +="<td colspan='2' rowspan='" + Object.keys(row[category]).length +"'>Defense</td>";
                 headerWriten = true;
             }
             contents +="<td>" + subCateg + "</td>";
