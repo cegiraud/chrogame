@@ -12,6 +12,10 @@
             "js": ["js/jquery-2.1.0.min.js", "modules/core/js/content.js"],
             "matches": [ "http://*.ogame.gameforge.com/game/index.php?*", "https://*/.ogame.gameforge.com/game/index.php?*" ]
         },
+        {
+            "js": ["js/jquery-2.1.0.min.js", "modules/empire/js/content.js"],
+            "matches": [ "http://*.ogame.gameforge.com/game/index.php?*", "https://*/.ogame.gameforge.com/game/index.php?*" ]
+        },
 		{
             "js": ["js/jquery-2.1.0.min.js", "modules/centralisation/js/content.js"],
             "matches": [ "http://*.ogame.gameforge.com/game/index.php?page=fleet*", "https://*/.ogame.gameforge.com/game/index.php?page=fleet*" ]

@@ -17,9 +17,9 @@ chrogameApp.controller('ResourcesController', function($scope) {
     $scope.resources=function(){
         ogameData = chrome.extension.getBackgroundPage().ogameData;
         var resources = {
-            "metal":{"quantite":0,"flying":0,"production":0,"max":0},
-            "cristal":{"quantite":0,"flying":0,"production":0,"max":0},
-            "deuterium":{"quantite":0,"flying":0,"production":0,"max":0}
+            "metal":{"quantity":0,"flying":0,"production":0,"max":0},
+            "cristal":{"quantity":0,"flying":0,"production":0,"max":0},
+            "deuterium":{"quantity":0,"flying":0,"production":0,"max":0}
         };
         $.each(ogameData.planets, function (planetCode,planet){
             $.each(planet.resources, function (type, infos){
@@ -50,9 +50,9 @@ chrogameApp.controller('CalculatorController', function($scope) {
     $scope.resources=function(){
         ogameData = chrome.extension.getBackgroundPage().ogameData;
         var resources = {
-            "metal":{"quantite":0,"flying":0,"production":0,"max":0},
-            "cristal":{"quantite":0,"flying":0,"production":0,"max":0},
-            "deuterium":{"quantite":0,"flying":0,"production":0,"max":0}
+            "metal":{"quantity":0,"flying":0,"production":0,"max":0},
+            "cristal":{"quantity":0,"flying":0,"production":0,"max":0},
+            "deuterium":{"quantity":0,"flying":0,"production":0,"max":0}
         };
         $.each(ogameData.planets, function (planetCode,planet){
             $.each(planet.resources, function (type, infos){
