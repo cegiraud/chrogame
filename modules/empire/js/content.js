@@ -8,10 +8,14 @@ var planetCode;
  * Méthode principale
  */
 function launch(){
-    document.styleSheets[0].addRule('h1', 'font-size: 40px;margin: 10px;padding: 10px;color: gray;');
+    document.styleSheets[0].addRule('#title', 'margin: 10px;color: gray');
+    document.styleSheets[0].addRule('h1', 'margin: 10px;font-size: 40px;display:inline');
+    document.styleSheets[0].addRule('h2', 'display:inline');
     document.styleSheets[0].addRule('#empire','text-align:center');
-    document.styleSheets[0].addRule('#empire table','width:100%');
-    document.styleSheets[0].addRule('#empire td ','border : 1px gray solid');
+    document.styleSheets[0].addRule('#empire table','width:100%; color:#9c0; font-size:11px');
+    document.styleSheets[0].addRule('#empire table tr:nth-child(even)','background:#0F1216');
+    document.styleSheets[0].addRule('#empire table tr:nth-child(odd)','background:#151A1F');
+
 
     $("#mmoLogo").html("Vue Empire").css({'font-size':'20px', 'text-indent':'0',background:'none', cursor: 'pointer'})
         .removeAttr('href')
@@ -51,7 +55,7 @@ function buildPage(ogameData){
             });
         });
 
-        var contents = "<div id='empire'><h1>Vue Empire</h1><table>";
+        var contents = "<div id='empire'><div id='title'><h1>Vue Empire</h1><h2><a href='/game/index.php?page=overview'>[Retour]</a></h2></div><table>";
 
         //infos
         var headerWriten = false;
@@ -175,8 +179,7 @@ function buildPage(ogameData){
             contents +="<td>"+value+"</td>";
         });
         contents += "</tr>";
-        contents +="</table><h2><a href='/game/index.php?page=overview'>Retour</a></h2></div>";
-
+        contents +="</table></div>";
         return contents;
     });
 }
