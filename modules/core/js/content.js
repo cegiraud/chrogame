@@ -149,7 +149,7 @@ function getMultipleDataOnPages(keys, type,planetCode){
             if(name.indexOf("<") != -1){
                 name = name.substring(0, name.indexOf("<"));
             }
-            if (name.indexOf("développer au niveau") == -1) {
+            if (name.indexOf("développer au niveau") == -1 && name.length != 0) {
                 result[name.trim()] = $(this).find(".level").clone().children().remove().end().text().trim();
             }
         });
