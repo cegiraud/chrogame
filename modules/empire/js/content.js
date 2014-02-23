@@ -100,7 +100,9 @@ function buildPage(ogameData){
                     if($(this)[0][category] != undefined &&  $(this)[0][category][subCateg] != undefined ){
                         value =  $(this)[0][category][subCateg][type];
                         if(type =='production') value *=60*60;
-                        value = value.toFixed(0);
+                        value = value.toFixed(0).replace(/./g, function(c, i, a) {
+                            return i && c !== "." && !((a.length - i) % 3) ? ' ' + c : c;
+                        });
                     }
                     contents +="<td>" + value + "</td>";
                 });
@@ -141,7 +143,9 @@ function buildPage(ogameData){
             $.each(ogameData.planets, function(){
                 var value = 0;
                 if($(this)[0][category] != undefined &&  $(this)[0][category][subCateg] != undefined ){
-                    value =  $(this)[0][category][subCateg];
+                    value =  $(this)[0][category][subCateg].replace(/\./g,'').replace(/./g, function(c, i, a) {
+                        return i && c !== "." && !((a.length - i) % 3) ? ' ' + c : c;
+                    });
                 }
                 contents +="<td>" +value + "</td>";
             });
@@ -161,7 +165,9 @@ function buildPage(ogameData){
             $.each(ogameData.planets, function(){
                 var value = 0;
                 if($(this)[0][category] != undefined &&  $(this)[0][category][subCateg] != undefined ){
-                    value =  $(this)[0][category][subCateg];
+                    value =  $(this)[0][category][subCateg].replace(/\./g,'').replace(/./g, function(c, i, a) {
+                        return i && c !== "." && !((a.length - i) % 3) ? ' ' + c : c;
+                    });
                 }
                 contents +="<td>" +value + "</td>";
             });
