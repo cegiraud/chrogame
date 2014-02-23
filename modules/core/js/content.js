@@ -32,6 +32,9 @@ function launch(){
     getFleets();
     getDefenses();
     getInfos();
+    if(activePage.indexOf('research') != -1) {
+        getResearches();
+    }
 }
 
 
@@ -136,8 +139,9 @@ function getFlyingResources(){
  * Méthode générique pour parser les pages de batiment, structure, defense, flotte
  * @param keys le tableau de clé
  * @param type le type d'objet
+ * @param planetCode le code de la planete
  */
-function getMultipleDataOnPages(keys, type){
+function getMultipleDataOnPages(keys, type,planetCode){
     var result= {};
     $.each(keys, function(){
         $(this + " .tooltip").each(function(){
@@ -157,21 +161,28 @@ function getMultipleDataOnPages(keys, type){
  * Réccupére les batiments
  */
 function getBuildings(){
-    getMultipleDataOnPages(['#building', '#storage', '#den', '#stationbuilding'], "buildings" );
+    getMultipleDataOnPages(['#building', '#storage', '#den', '#stationbuilding'], "buildings", planetCode);
 }
 
 /**
  * Réccupére les flottes
  */
 function getFleets(){
-    getMultipleDataOnPages(['#military'], "military" );
+    getMultipleDataOnPages(['#military'], "military",planetCode);
 }
 
 /**
  * Réccupére les défenses
  */
 function getDefenses(){
-    getMultipleDataOnPages(['#defensebuilding'], "defensebuilding" );
+    getMultipleDataOnPages(['#defensebuilding'], "defensebuilding",planetCode);
+}
+
+/**
+ * Réccupére les défenses
+ */
+function getResearches(){
+    getMultipleDataOnPages(['#base1','#base2','#base3','#base4'], "recherche");
 }
 
 /**
