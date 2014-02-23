@@ -18,5 +18,6 @@
     <tr><th>Capacit&#233; de stockage</th><td>{{resources()[type].max| number:0}}</td></tr>
     <tr><th>Production actuelle</th><td>{{resources()[type].production*60*60| number:0}}</td></tr>
     </tbody>
+    <caption><h1>Ratio : {{resources().metal.production/resources().cristal.production| number:2}}</h1></caption>
 </table>
 
