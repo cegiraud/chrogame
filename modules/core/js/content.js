@@ -168,7 +168,7 @@ function getBuildings(){
  * Réccupére les flottes
  */
 function getFleets(){
-    getMultipleDataOnPages(['#military'], "military",planetCode);
+    getMultipleDataOnPages(['#military','#civil'], "military",planetCode);
 }
 
 /**
