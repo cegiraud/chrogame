@@ -112,11 +112,14 @@ function isFriendlyFleetFlying(){
  * Réccupère les ressources des flottes en vol
  */
 function getFlyingResources(){
-    //Si pas de flotte on ne fait pas l'appel ajax
-    if(!isFriendlyFleetFlying()) return;
-
     var flyingResources = {metal:0,cristal:0,deuterium:0};
-    $.ajax({
+
+    //Si pas de flotte on ne fait pas l'appel ajax
+    if(!isFriendlyFleetFlying()){
+        sendDatas("flyingResources", flyingResources);
+    }
+
+   $.ajax({
         url: $(location).attr('protocol') +'//'+ $(location).attr('host') + $(location).attr('pathname') +'?page=eventList',
         dataType: 'html',
         success: function(result){
