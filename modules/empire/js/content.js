@@ -8,14 +8,19 @@ var planetCode;
  * Méthode principale
  */
 function launch(){
-    document.styleSheets[0].addRule('#empire table, #empire td ','text-align:center; border : 1px gray solid');
+    document.styleSheets[0].addRule('h1', 'font-size: 40px;margin: 10px;padding: 10px;color: gray;');
+    document.styleSheets[0].addRule('#empire','text-align:center');
+    document.styleSheets[0].addRule('#empire table','width:100%');
+    document.styleSheets[0].addRule('#empire td ','border : 1px gray solid');
 
-    if($(location).attr('href').indexOf("TOTO=") !=-1){
+    $("#mmoLogo").html("Vue Empire").css({'font-size':'20px', 'text-indent':'0',background:'none', cursor: 'pointer'})
+        .removeAttr('href')
+        .click(function(){
         // Récupération de tout le paramétrage du module de centralisation
         chrome.extension.sendRequest({module:"core",method: "getOgameData"}, function(response) {
             buildPage(response);
         });
-    }
+    });
 }
 
 function htmlifyResourcesJSON(json){
@@ -46,7 +51,7 @@ function buildPage(ogameData){
             });
         });
 
-        var contents = "<table id='empire'>";
+        var contents = "<div id='empire'><h1>Vue Empire</h1><table>";
 
         //infos
         var headerWriten = false;
@@ -119,7 +124,7 @@ function buildPage(ogameData){
             contents += "</tr>";
         });
 
-        contents +="</table>";
+        contents +="</table><h2><a href='/game/index.php?page=overview'>Retour</a></h2></div>";
 
         return contents;
     });
