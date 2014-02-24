@@ -9,8 +9,8 @@ var planetCode;
  */
 function launch(){
     document.styleSheets[0].addRule('#title', 'margin: 10px;color: gray');
-    document.styleSheets[0].addRule('h1', 'margin: 10px;font-size: 40px;display:inline');
-    document.styleSheets[0].addRule('h2', 'display:inline');
+    document.styleSheets[0].addRule('#title h1', 'margin: 10px;font-size: 40px;display:inline');
+    document.styleSheets[0].addRule('#title h2', 'display:inline');
     document.styleSheets[0].addRule('#empire','text-align:center');
     document.styleSheets[0].addRule('#empire table','width:100%; color:#9c0; font-size:11px');
     document.styleSheets[0].addRule('#empire table tr:nth-child(even)','background:#0F1216');
