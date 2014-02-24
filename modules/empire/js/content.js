@@ -175,17 +175,19 @@ function buildPage(ogameData){
         });
         contents +="</table>";
 
-
-        contents +="<br/><table><tr><td>Recherche</td>";
-        $.each(ogameData.recherche, function(key,value){
-            contents +="<td>"+key+"</td>";
-        });
-        contents +="</tr><tr><td>Niveau</td>";
-        $.each(ogameData.recherche, function(key,value){
-            contents +="<td>"+value+"</td>";
-        });
-        contents += "</tr>";
-        contents +="</table></div>";
+        if(ogameData.recherche != undefined){
+            contents +="<br/><table><tr><td>Recherche</td>";
+            $.each(ogameData.recherche, function(key,value){
+                contents +="<td>"+key+"</td>";
+            });
+            contents +="</tr><tr><td>Niveau</td>";
+            $.each(ogameData.recherche, function(key,value){
+                contents +="<td>"+value+"</td>";
+            });
+            contents += "</tr>";
+            contents +="</table>";
+        }
+        contents +="</div>";
         return contents;
     });
 }
