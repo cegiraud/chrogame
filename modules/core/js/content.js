@@ -10,7 +10,7 @@ var planetCode;
 function launch(){
     var activePage = $(location).attr('href');
     var toLaunch = false;
-    $.each(['overview', 'resources' ,'station' ,'research', 'shipyard', 'defense', 'movement'], function (){
+    $.each(['overview', 'resources' ,'station' ,'research', 'fleet1', 'defense', 'movement'], function (){
         if(activePage.indexOf(this) !=-1){
             return toLaunch = true;
         }
@@ -194,7 +194,9 @@ function getResearches(){
 function getInfos(){
     var name = $("#header_text h2").text();
     name = name.substring(name.indexOf("-") +2);
-    sendDatas("infos", {name:name}, planetCode);
+    if(name != null && name != "") {
+        sendDatas("infos", {name:name}, planetCode);
+    }
 }
 
 /**
