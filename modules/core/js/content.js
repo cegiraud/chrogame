@@ -10,7 +10,7 @@ var planetCode;
 function launch(){
     var activePage = $(location).attr('href');
     var toLaunch = false;
-    $.each(['overview', 'resources' ,'station' ,'research', 'shipyard', 'defense'], function (){
+    $.each(['overview', 'resources' ,'station' ,'research', 'shipyard', 'defense', 'movement'], function (){
         if(activePage.indexOf(this) !=-1){
             return toLaunch = true;
         }
