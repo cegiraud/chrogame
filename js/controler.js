@@ -49,6 +49,8 @@ chrogameApp.controller('ResourcesController', function($scope) {
  *  Module de calcul
  */
 chrogameApp.controller('CalculatorController', function($scope) {
+    $scope.isFlyingResources=true;
+
     $scope.resources=function(){
         ogameData = chrome.extension.getBackgroundPage().ogameData;
         var resources = {
@@ -63,6 +65,12 @@ chrogameApp.controller('CalculatorController', function($scope) {
                 })
             });
         });
+
+        if(ogameData.flyingResources != undefined && $scope.isFlyingResources){
+            $.each(ogameData.flyingResources, function (type,value){
+                resources[type].quantity += value;
+            });
+        }
         return resources;
     }
 
