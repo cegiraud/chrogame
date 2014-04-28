@@ -52,12 +52,15 @@ function doFleet1JobCentralisation(){
     centraliserButton.attr("id","centraliserButton");
     centraliserButton.removeClass("off");
     centraliserButton.addClass("on");
-    centraliserButton.removeAttr("onclick");
+    //centraliserButton.removeAttr("onclick");
+    centraliserButton.attr("onclick","window.location.href='index.php?page=fleet2&centraliser=on&am203="+cNbGts+"'");
+
+
     centraliserButton.children("span").text("Centraliser");
     centraliserButton.children("span").attr("style","display: block;color: #fff;text-align: center;height: 38px;line-height: 38px;" +
         "overflow: hidden;font-weight: bold;text-transform: uppercase;font-size: 12px;margin: 0;padding: 0;border: 0;outline: 0;" +
         "cursor: auto;overflow-x: hidden;overflow-y: hidden;");
-    centraliserButton.attr("href","index.php?page=fleet2&centraliser=on&am203="+cNbGts);
+    centraliserButton.attr("href","");
     centraliserButton.attr("style","margin: 0;padding: 0;height: 38px;width: 104px;float: right;position: static;display: inline;" +
         "background: transparent url('http://gf1.geo.gfsrv.net/cdn34/aaf1c61682bcced5096fa5f23fd802.png') 0 -240px;text-decoration: none;" +
         "color: #848484;-moz-outline-width: 0;outline: 0;font-weight: inherit;font-style: inherit;font-size: 100%;font-family: inherit;cursor: auto;text-align: left;");
