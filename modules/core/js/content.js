@@ -45,8 +45,7 @@ function launch(){
  */
 function getPlanetCode(){
     var selector = $("#planetList .planetlink.active, #planetList .moonlink.active");
-    if(selector[0] != undefined){
-     } else {
+    if(selector[0] == undefined){
         //si une seule planete
         selector = $("#planetList .planetlink");
     }
@@ -158,8 +157,7 @@ function getMultipleDataOnPages(keys, type,planetCode){
             if(name.indexOf("<") != -1){
                 name = name.substring(0, name.indexOf("<"));
             }
-            if (name.indexOf("développer au niveau") == -1 && name.length != 0) {
-
+            if (name.indexOf("développer au niveau") == -1 && name.length != 0  && name.indexOf("Rechercher ") == -1) {
                 result[escapeHtml(name.trim())] = $(this).find(".level").clone().children().remove().end().text().trim();
             }
         });
