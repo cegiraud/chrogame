@@ -3,6 +3,7 @@
  */
 
 var planetCode;
+var userId = $("meta[name='ogame-player-id']").attr("content");
 
 /**
  * Méthode principale
@@ -44,6 +45,11 @@ function launch(){
  */
 function getPlanetCode(){
     var selector = $("#planetList .planetlink.active, #planetList .moonlink.active");
+    if(selector[0] != undefined){
+     } else {
+        //si une seule planete
+        selector = $("#planetList .planetlink");
+    }
     var planetCode = selector[0].href.substring(selector[0].href.lastIndexOf('cp=') + 3);
     return planetCode.indexOf('#') != -1 ? planetCode.substring(0, planetCode.indexOf('#')): planetCode;
 }
@@ -206,7 +212,7 @@ function getInfos(){
  * @param planetCode
  */
 function sendDatas(method, data, planetCode){
-    chrome.extension.sendRequest({module: "core", method: method, planetCode: planetCode, data : data});
+    chrome.extension.sendRequest({user: userId, module: "core", method: method, planetCode: planetCode, data : data});
 }
 
 $(document).ready(launch);

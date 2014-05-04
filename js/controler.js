@@ -6,7 +6,7 @@ chrogameApp.controller('MenuController', function($scope, $location) {
     $scope.menu = "/resources";
     $scope.changeView = function(){
         $location.path($scope.menu);
-    }
+    };
     $scope.changeView();
 });
 
@@ -15,7 +15,7 @@ chrogameApp.controller('MenuController', function($scope, $location) {
  */
 chrogameApp.controller('ResourcesController', function($scope) {
     $scope.resources=function(){
-        ogameData = chrome.extension.getBackgroundPage().ogameData;
+        var ogameData = chrome.extension.getBackgroundPage().ogameData[chrome.extension.getBackgroundPage().currentUserId];
         var resources = {
             "metal":{"quantity":0,"flying":0,"production":0,"max":0},
             "cristal":{"quantity":0,"flying":0,"production":0,"max":0},
@@ -35,7 +35,7 @@ chrogameApp.controller('ResourcesController', function($scope) {
             });
         }
         return resources;
-    }
+    };
 
     $scope.refresh=function(){
         $scope.$apply();
@@ -52,7 +52,7 @@ chrogameApp.controller('CalculatorController', function($scope) {
     $scope.isFlyingResources=true;
 
     $scope.resources=function(){
-        ogameData = chrome.extension.getBackgroundPage().ogameData;
+        var ogameData = chrome.extension.getBackgroundPage().ogameData[chrome.extension.getBackgroundPage().currentUserId];
         var resources = {
             "metal":{"quantity":0,"flying":0,"production":0,"max":0},
             "cristal":{"quantity":0,"flying":0,"production":0,"max":0},
@@ -72,7 +72,7 @@ chrogameApp.controller('CalculatorController', function($scope) {
             });
         }
         return resources;
-    }
+    };
 
     $scope.refresh=function(){
         $scope.$apply();
@@ -128,11 +128,11 @@ chrogameApp.controller('CentralisationController', function($scope) {
 
     $scope.updateModuleActive = function(){
         localStorage["centralisation_active"] = $scope.moduleActive;
-    }
+    };
 
     $scope.updateAstre = function(){
         localStorage["astre_centralisation"] = $scope.astre.id;
-    }
+    };
 
     $scope.updateCentralisationType = function(){
         localStorage["type_centralisation"] = $scope.centralisationType.id;
