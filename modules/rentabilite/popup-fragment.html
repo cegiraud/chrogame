@@ -45,7 +45,7 @@
 
     <div class="container">
         <table id="rentaPlusUnMetal">
-            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tbody ng-repeat="type in ['metal', 'cristal']">
             <tr>
                 <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
                 <th>Coût</th><td>{{rentaPlusUnMetal.couts[type]|number:0}}</td>
@@ -59,7 +59,7 @@
 
     <div class="container">
         <table id="rentaPlusUnCristal">
-            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tbody ng-repeat="type in ['metal', 'cristal']">
             <tr>
                 <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
                 <th>Coût</th><td>{{rentaPlusUnCristal.couts[type]|number:0}}</td>
@@ -73,7 +73,7 @@
 
     <div class="container">
         <table id="rentaPlusUnCristalMetal">
-            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tbody ng-repeat="type in ['metal', 'cristal']" style="display: inline-block">
             <tr>
                 <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
                 <th>Coût</th><td>{{rentaPlusUnCristalMetal.couts[type]|number:0}}</td>
