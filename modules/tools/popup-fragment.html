@@ -1,0 +1,87 @@
+<head>
+<style type="text/css">
+    .icon-resources {background : url('modules/resources/img/icone-resources.png') no-repeat; float: left; height: 32px; width: 48px}
+    .icon-metal {background-position: 0 -160px;}
+    .icon-cristal {background-position: -48px -160px;}
+    .icon-deuterium {background-position: -96px -160px;}
+    .positive{color:green}
+    .negative{color:red}
+    input[type="number"] {width: 100px}
+    .checkboxLine {white-space: nowrap}
+    .container {display: inline-block}
+    table tbody tr td:last-child {width: auto}
+</style>
+</head>
+
+<div style="width: 420px">
+    <div class="container">
+    <table id="rentaPlusUnePlanete">
+        <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+        <tr>
+            <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+            <th>Coût</th><td>{{rentaPlusUnePlanete.couts[type]|number:0}}</td>
+        </tr>
+        <tr><th>Gain</th><td>{{rentaPlusUnePlanete.gain[type]|number:0}}</td></tr>
+        <tr><th>Rentabilit&#233;</th><td>{{(rentaPlusUnePlanete.gain[type]/rentaPlusUnePlanete.couts[type]).toExponential(4)}}</td></tr>
+        </tbody>
+        <caption><h1>Rentabilit&#233; +1 planète</h1></caption>
+    </table>
+</div>
+
+
+    <div class="container">
+        <table id="rentaPlusUnPlasma">
+            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tr>
+                <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+                <th>Coût</th><td>{{rentaPlusUnPlasma.couts[type]|number:0}}</td>
+            </tr>
+            <tr><th>Gain</th><td>{{rentaPlusUnPlasma.gain[type]|number:0}}</td></tr>
+            <tr><th>Rentabilit&#233;</th><td>{{(rentaPlusUnPlasma.gain[type]/rentaPlusUnPlasma.couts[type]).toExponential(4)}}</td></tr>
+            </tbody>
+            <caption><h1>Rentabilit&#233; +1 plasma</h1></caption>
+        </table>
+    </div>
+
+    <div class="container">
+        <table id="rentaPlusUnMetal">
+            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tr>
+                <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+                <th>Coût</th><td>{{rentaPlusUnMetal.couts[type]|number:0}}</td>
+            </tr>
+            <tr><th>Gain</th><td>{{rentaPlusUnMetal.gain[type]|number:0}}</td></tr>
+            <tr><th>Rentabilit&#233;</th><td>{{(rentaPlusUnMetal.gain[type]/rentaPlusUnMetal.couts[type]).toExponential(4)}}</td></tr>
+            </tbody>
+            <caption><h1>Rentabilit&#233; +1 niv. métal</h1></caption>
+        </table>
+    </div>
+
+    <div class="container">
+        <table id="rentaPlusUnCristal">
+            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tr>
+                <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+                <th>Coût</th><td>{{rentaPlusUnCristal.couts[type]|number:0}}</td>
+            </tr>
+            <tr><th>Gain</th><td>{{rentaPlusUnCristal.gain[type]|number:0}}</td></tr>
+            <tr><th>Rentabilit&#233;</th><td>{{(rentaPlusUnCristal.gain[type]/rentaPlusUnCristal.couts[type]).toExponential(4)}}</td></tr>
+            </tbody>
+            <caption><h1>Rentabilit&#233; +1 niv. cristal</h1></caption>
+        </table>
+    </div>
+
+    <div class="container">
+        <table id="rentaPlusUnCristalMetal">
+            <tbody ng-repeat="type in ['metal', 'cristal', 'deuterium']">
+            <tr>
+                <td rowspan='3'><span class="icon-resources icon-{{type}}"/></td>
+                <th>Coût</th><td>{{rentaPlusUnCristalMetal.couts[type]|number:0}}</td>
+            </tr>
+            <tr><th>Gain</th><td>{{rentaPlusUnCristalMetal.gain[type]|number:0}}</td></tr>
+            <tr><th>Rentabilit&#233;</th><td>{{(rentaPlusUnCristalMetal.gain[type]/rentaPlusUnCristalMetal.couts[type]).toExponential(4)}}</td></tr>
+            </tbody>
+            <caption><h1>Rentabilit&#233; +1 niv. cristal et métal</h1></caption>
+        </table>
+    </div>
+</div>
