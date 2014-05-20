@@ -10,6 +10,10 @@ chrogameApp.config(['$routeProvider',
                 templateUrl: 'modules/calculator/popup-fragment.html',
                 controller: 'CalculatorController'
             }).
+            when('/rentabilite', {
+                templateUrl: 'modules/rentabilite/popup-fragment.html',
+                controller: 'RentabiliteController'
+            }).
             when('/centralisation', {
                 templateUrl: 'modules/centralisation/popup-fragment.html',
                 controller: 'CentralisationController'
