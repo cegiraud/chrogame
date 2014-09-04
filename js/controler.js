@@ -369,6 +369,11 @@ chrogameApp.controller('CentralisationController', function($scope) {
         {id:5,name:'Deut - Cristal - Metal'}
     ];
 
+    $scope.modeVol = [
+        {id:0,name:'Transporter'},
+        {id:1,name:'Stationner'}
+    ];
+
     $scope.moduleActiveBoolean=false;
     if(localStorage["centralisation_active"] == 'true'){
         $scope.moduleActiveBoolean=true;
@@ -377,6 +382,7 @@ chrogameApp.controller('CentralisationController', function($scope) {
     $scope.centralisationType=$scope.centralisationTypes[localStorage["type_centralisation"]];
     $scope.astre=$scope.astres[localStorage["astre_centralisation"]];
     $scope.ordre=$scope.ordrePriorite[localStorage["ordre_centralisation"]];
+    $scope.vol=$scope.modeVol[localStorage["modeVol_centralisation"]];
     $scope.galaxy=localStorage["centralisation_galaxy"];
     $scope.system=localStorage["centralisation_system"];
     $scope.position=localStorage["centralisation_position"];
@@ -407,6 +413,10 @@ chrogameApp.controller('CentralisationController', function($scope) {
 
     $scope.updateOrdrePriorite = function(){
         localStorage["ordre_centralisation"] = $scope.ordre.id;
+    }
+
+    $scope.updateModeVol = function(){
+        localStorage["modeVol_centralisation"] = $scope.vol.id;
     }
 });
 

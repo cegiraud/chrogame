@@ -10,6 +10,7 @@ var cAstre = 1;
 var cType = -1;
 var cNbGts = 0;
 var cOrdre = -1;
+var cModeVol = -1;
 
 function launch(){
     // Récupération de tout le paramétrage du module de centralisation
@@ -21,6 +22,7 @@ function launch(){
         cAstre=response.astre;
         cType=response.centralisationType;
         cOrdre=response.ordre;
+        cModeVol=response.modeVol;
 
         // Si le module n'est pas activé, on sort.
         if(cActive == "true"){
@@ -92,17 +94,25 @@ function doFleet2JobCentralisation(paramCentraliser){
 
 function doFleet3JobCentralisation(){
     console.log("Ordre de priorité: >"+cOrdre+"<")
+    console.log("Mode de vol: >"+cModeVol+"<")
     if(getCookie("click_centraliser") == "true"){
         setCookie("click_centraliser","false");
 
-        // On clique sur la mission transporter
-        $("#missionButton3").get(0).click();
+        if(cModeVol == 0){
+            // On clique sur la mission transporter
+            $("#missionButton3").get(0).click();
+        }
+
+        if(cModeVol == 1){
+            // On clique sur la mission transporter
+            $("#missionButton4").get(0).click();
+        }
 
         // Chargement des ressources
         loadResources();
 
         // Envoie de la flotte
-        $("#start").get(0).click();
+        //$("#start").get(0).click();
     }
 }
 

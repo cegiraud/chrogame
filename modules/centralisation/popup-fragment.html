@@ -44,6 +44,14 @@
             <select ng-model="ordre" ng-options="c.name for c in ordrePriorite" ng-change="updateOrdrePriorite()"></select>
         </td>
     </tr>
+    <tr>
+        <td class="label">
+            Mode de vol:
+        </td>
+        <td>
+            <select ng-model="vol" ng-options="c.name for c in modeVol" ng-change="updateModeVol()"></select>
+        </td>
+    </tr>
     </tbody>
 </table>
 
