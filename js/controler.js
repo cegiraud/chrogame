@@ -344,6 +344,9 @@ chrogameApp.controller('RentabiliteController', function($scope) {
     init();
 });
 
+/**
+ * Module de centralisation
+ */
 chrogameApp.controller('CentralisationController', function($scope) {
     $scope.centralisationTypes = [
         {id:0,name:'Toutes les ressources'},
@@ -357,6 +360,15 @@ chrogameApp.controller('CentralisationController', function($scope) {
         {id:1,name:'Lune'}
     ];
 
+    $scope.ordrePriorite = [
+        {id:0,name:'Metal - Cristal - Deut'},
+        {id:1,name:'Metal - Deut - Cristal'},
+        {id:2,name:'Cristal - Metal - Deut'},
+        {id:3,name:'Cristal - Deut - Metal'},
+        {id:4,name:'Deut - Metal - Cristal'},
+        {id:5,name:'Deut - Cristal - Metal'}
+    ];
+
     $scope.moduleActiveBoolean=false;
     if(localStorage["centralisation_active"] == 'true'){
         $scope.moduleActiveBoolean=true;
@@ -364,6 +376,7 @@ chrogameApp.controller('CentralisationController', function($scope) {
 
     $scope.centralisationType=$scope.centralisationTypes[localStorage["type_centralisation"]];
     $scope.astre=$scope.astres[localStorage["astre_centralisation"]];
+    $scope.ordre=$scope.ordrePriorite[localStorage["ordre_centralisation"]];
     $scope.galaxy=localStorage["centralisation_galaxy"];
     $scope.system=localStorage["centralisation_system"];
     $scope.position=localStorage["centralisation_position"];
@@ -391,8 +404,15 @@ chrogameApp.controller('CentralisationController', function($scope) {
     $scope.updateCentralisationType = function(){
         localStorage["type_centralisation"] = $scope.centralisationType.id;
     }
+
+    $scope.updateOrdrePriorite = function(){
+        localStorage["ordre_centralisation"] = $scope.ordre.id;
+    }
 });
 
+/**
+ * Module de Ghoste
+ */
 chrogameApp.controller('GhostController', function($scope) {
     $scope.moduleActiveBoolean=false;
     if(localStorage["ghost_active"] == 'true'){

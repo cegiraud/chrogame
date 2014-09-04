@@ -36,6 +36,14 @@
             <select ng-model="centralisationType" ng-options="c.name for c in centralisationTypes" ng-change="updateCentralisationType()"></select>
         </td>
     </tr>
+    <tr>
+        <td class="label">
+            Ordre de priorite:
+        </td>
+        <td>
+            <select ng-model="ordre" ng-options="c.name for c in ordrePriorite" ng-change="updateOrdrePriorite()"></select>
+        </td>
+    </tr>
     </tbody>
 </table>
 

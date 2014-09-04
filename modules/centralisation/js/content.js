@@ -9,6 +9,7 @@ var cPosition = 1;
 var cAstre = 1;
 var cType = -1;
 var cNbGts = 0;
+var cOrdre = -1;
 
 function launch(){
     // Récupération de tout le paramétrage du module de centralisation
@@ -19,6 +20,7 @@ function launch(){
         cPosition=response.position;
         cAstre=response.astre;
         cType=response.centralisationType;
+        cOrdre=response.ordre;
 
         // Si le module n'est pas activé, on sort.
         if(cActive == "true"){
@@ -47,30 +49,32 @@ function doFleet1JobCentralisation(){
     //Positionnement du nombre de gts necessaires
     calcNbGts();
 
-    // Creation du bouton de centralisation
-    var centraliserButton = $("#continue").clone();
-    centraliserButton.attr("id","centraliserButton");
-    centraliserButton.removeClass("off");
-    centraliserButton.addClass("on");
-    //centraliserButton.removeAttr("onclick");
-    centraliserButton.attr("onclick","window.location.href='index.php?page=fleet2&centraliser=on&am203="+cNbGts+"'");
-
-
-    centraliserButton.children("span").text("Centraliser");
-    centraliserButton.children("span").attr("style","display: block;color: #fff;text-align: center;height: 38px;line-height: 38px;" +
-        "overflow: hidden;font-weight: bold;text-transform: uppercase;font-size: 12px;margin: 0;padding: 0;border: 0;outline: 0;" +
-        "cursor: auto;overflow-x: hidden;overflow-y: hidden;");
-    centraliserButton.attr("href","");
+    var centraliserButton = $("<a class='on'></a>");
     centraliserButton.attr("style","margin: 0;padding: 0;height: 38px;width: 104px;float: right;position: static;display: inline;" +
         "background: transparent url('http://gf1.geo.gfsrv.net/cdn34/aaf1c61682bcced5096fa5f23fd802.png') 0 -240px;text-decoration: none;" +
         "color: #848484;-moz-outline-width: 0;outline: 0;font-weight: inherit;font-style: inherit;font-size: 100%;font-family: inherit;cursor: auto;text-align: left;");
+
+    var centraliserLabel = $("<span>Centraliser</span>")
+    centraliserLabel.attr("style","display: block;color: #fff;text-align: center;height: 38px;line-height: 38px;" +
+        "overflow: hidden;font-weight: bold;text-transform: uppercase;font-size: 12px;margin: 0;padding: 0;border: 0;outline: 0;" +
+        "cursor: auto;overflow-x: hidden;overflow-y: hidden;");
+    centraliserButton.append(centraliserLabel);
+    centraliserButton.attr("id","centraliserButton");
+    centraliserButton.bind("click",function(){
+            $("#button203 div").children('a').get(0).click();
+            $("#ship_203").val(cNbGts);
+
+            setCookie("click_centraliser","true");
+            $("#continue").get(0).click();
+        }
+    );
 
     // Insertion du bouton de centralisation dans la page
     $("#continue").after(centraliserButton);
 }
 
 function doFleet2JobCentralisation(paramCentraliser){
-    if(paramCentraliser == "on"){
+    if(getCookie("click_centraliser") == "true"){
         $("#galaxy").val(cGalaxy);
         $("#system").val(cSystem);
         $("#position").val(cPosition);
@@ -87,6 +91,7 @@ function doFleet2JobCentralisation(paramCentraliser){
 }
 
 function doFleet3JobCentralisation(){
+    console.log("Ordre de priorité: >"+cOrdre+"<")
     if(getCookie("click_centraliser") == "true"){
         setCookie("click_centraliser","false");
 
@@ -102,17 +107,77 @@ function doFleet3JobCentralisation(){
 }
 
 function loadResources(){
-    if(cType == 0 || cType == 1){
-        $("#metal").val($("#resources_metal").text());
+    /**
+     * Rappel des différentes valeurs
+     * Type 0: Centraliser Tout
+     * Type 1: Centraliser Metal
+     * Type 2: Centraliser Cristal
+     * Type 3: Centraliser Deuterium
+     *
+     * Ordre 0: M,C,D
+     * Ordre 1: M,D,C
+     * Ordre 2: C,M,D
+     * Ordre 3: C,D,M
+     * Ordre 4: D,M,C
+     * Ordre 5: D,C,M
+     */
+
+    if(cType == 1){
+        clickMax(0);
     }
 
-    if(cType == 0 || cType == 2){
-        $("#crystal").val($("#resources_crystal").text());
+    if(cType == 2){
+        clickMax(1);
     }
 
-    if(cType == 0 || cType == 3){
-        $("#deuterium").val($("#resources_deuterium").text());
+    if(cType == 3){
+        clickMax(2);
     }
+
+    if(cType == 0){
+        // 1er click
+        if(cOrdre == 0 || cOrdre == 1){
+            clickMax(0);
+        }
+
+        if(cOrdre == 2 || cOrdre == 3){
+            clickMax(1);
+        }
+
+        if(cOrdre == 4 || cOrdre == 5){
+            clickMax(2);
+        }
+
+        //2eme click
+        if(cOrdre == 2 || cOrdre == 4){
+            clickMax(0);
+        }
+
+        if(cOrdre == 0 || cOrdre == 5){
+            clickMax(1);
+        }
+
+        if(cOrdre == 1 || cOrdre == 3){
+            clickMax(2);
+        }
+
+        //3eme click
+        if(cOrdre == 3 || cOrdre == 5){
+            clickMax(0);
+        }
+
+        if(cOrdre == 1 || cOrdre == 4){
+            clickMax(1);
+        }
+
+        if(cOrdre == 0 || cOrdre == 2){
+            clickMax(2);
+        }
+    }
+}
+
+function clickMax(index){
+    $("#resources .max").get(index).click();
 }
 
 function calcNbGts(){
