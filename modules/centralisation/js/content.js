@@ -112,7 +112,7 @@ function doFleet3JobCentralisation(){
         loadResources();
 
         // Envoie de la flotte
-        //$("#start").get(0).click();
+        $("#start").get(0).click();
     }
 }
 
