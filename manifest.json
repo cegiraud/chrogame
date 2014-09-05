@@ -9,6 +9,10 @@
 
     "content_scripts": [
         {
+            "js": ["js/jquery-2.1.0.min.js", "modules/accelerateur/js/content.js"],
+            "matches": [ "http://*.ogame.gameforge.com/game/index.php?page=fleet1", "https://*/.ogame.gameforge.com/game/index.php?page=fleet1" ]
+        },
+        {
             "js": ["js/jquery-2.1.0.min.js", "modules/core/js/content.js"],
             "matches": [ "http://*.ogame.gameforge.com/game/index.php?*", "https://*/.ogame.gameforge.com/game/index.php?*" ]
         },
