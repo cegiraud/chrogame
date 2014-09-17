@@ -44,10 +44,13 @@ function recupRessourcePlanete(){
 
 function recupVaisseauPlanete(){
     console.log("Début fonction recupVaisseauPlanete()");
-    pt = parseInt($("#button202 .level").text().substring(19));
-    gt = parseInt($("#button203 .level").text().substring(19));
-    recycleur = parseInt($("#button209 .level").text().substring(10));
-    edlm = parseInt($("#button214 .level").text().substring(18));
+
+    var reg = new RegExp("[\.]","gi");
+    pt = parseInt($("#button202 .level").text().substring(19).replace(reg,''));
+    gt = parseInt($("#button203 .level").text().substring(19).replace(reg,''));
+    recycleur = parseInt($("#button209 .level").text().substring(10).replace(reg,''));
+    edlm = parseInt($("#button214 .level").text().substring(18).replace(reg,''));
+
     console.log("Fin fonction recupVaisseauPlanete()");
 }
 
@@ -114,7 +117,7 @@ function accelereFleet1Page(){
     aRecycleurs.attr("onclick",'document.shipsChosen.am209.value='+nbRecycleur+';checkIntInput("#ship_209", 0, '+recycleur+');checkShips("shipsChosen");return false;');
 
     var fontRecycleurs= $("<font></font>");
-    if(nbGts > recycleur){
+    if(nbRecycleur > recycleur){
         fontRecycleurs.attr("style","color:red; background-color:rgba(17, 16, 0, 0.8); padding-bottom:1px; padding-top:1px; padding-left:2px; padding-right:2px; border-radius:5px; box-shadow:0px 0px 1px 1px rgba(17, 16, 0, 0.8)");
     }
     else{
@@ -125,6 +128,26 @@ function accelereFleet1Page(){
     spanRecycleurs.append(aRecycleurs);
     $("#button209 .buildingimg").append(spanRecycleurs);
 
+    // Cas des EDLM
+    var spanEDLM = $("<span></span>");
+    spanEDLM.attr("class","time");
+    spanEDLM.attr("style","top:10px; width:76px; background-color: transparent; text-align:center;");
+
+    var aEDLM=$("<a></a>");
+    aEDLM.attr("style","display:inline");
+    aEDLM.attr("onclick",'document.shipsChosen.am214.value='+nbEdlm+';checkIntInput("#ship_214", 0, '+edlm+');checkShips("shipsChosen");return false;');
+
+    var fontEDLM= $("<font></font>");
+    if(nbEdlm > edlm){
+        fontEDLM.attr("style","color:red; background-color:rgba(17, 16, 0, 0.8); padding-bottom:1px; padding-top:1px; padding-left:2px; padding-right:2px; border-radius:5px; box-shadow:0px 0px 1px 1px rgba(17, 16, 0, 0.8)");
+    }
+    else{
+        fontEDLM.attr("style","color:#00FF00; background-color:rgba(17, 16, 0, 0.8); padding-bottom:1px; padding-top:1px; padding-left:2px; padding-right:2px; border-radius:5px; box-shadow:0px 0px 1px 1px rgba(17, 16, 0, 0.8)");
+    }
+    fontEDLM.text(nbEdlm);
+    aEDLM.append(fontEDLM);
+    spanEDLM.append(aEDLM);
+    $("#button214 .buildingimg").append(spanEDLM);
     console.log("Fin fonction accelereFleet1Page()");
 }
 
